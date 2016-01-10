@@ -6,15 +6,19 @@
 ;;------------------------
 ;; Atoms etc.
 
-(defonce url "http://localhost:3449/phrases.json")
-
 (defonce pointer (reagent/atom 0))
 
 (defonce reveal  (reagent/atom "hidden"))
 
 (defonce all-phrases (reagent/atom {}))
 
-(defonce max-val (reagent/atom 0))
+(defonce url "http://localhost:3449/phrases.json")
+
+;;--------------------------
+;; Helpers
+
+(defn max-val []
+  (count @all-phrases))
 
 (defn phrase [index]
   (str "#" (inc index) (nth (keys @all-phrases) index)))
@@ -27,8 +31,7 @@
 ;; XHR Call
 
 (defn handler [response]
-  (reset! all-phrases response)
-  (reset! max-val (count @all-phrases)))
+  (reset! all-phrases response))
 
 (defn error-handler [{:keys [status status-text]}]
   (reset! all-phrases {:error true}))
@@ -45,14 +48,14 @@
 
 (defn show-next []
   (reset! reveal "hidden")
-  (if (== @pointer (dec @max-val))
+  (if (== @pointer (dec (max-val)))
     (reset! pointer 0)
     (swap! pointer inc)))
 
 (defn show-prev []
   (reset! reveal "hidden")
   (if (== @pointer 0)
-    (reset! pointer (dec @max-val))
+    (reset! pointer (dec (max-val)))
     (swap! pointer dec)))
 
 (defn show-description []
