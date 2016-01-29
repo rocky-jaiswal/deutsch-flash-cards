@@ -67,29 +67,29 @@
 
 (defn top-bar []
   [:div.top-bar
-   [:div.container
-    [:div.row
-     [:h3 "Learn Deutsch"]]]])
+    [:div.container
+      [:div.row]
+      [:h3 "Learn Deutsch"]]])
 
 (defn main []
   [:div.main
-   [:h4 (phrase @pointer)]
-   [:div.secondary {:class @reveal}
-    [:h5 (description @pointer)]]])
+    [:h4 (phrase @pointer)]
+    [:div.secondary {:class @reveal}
+      [:h5 (description @pointer)]]])
 
 (defn nav []
   [:div.nav
-   [:button.button-primary {:on-click show-prev} "Prev"]
-   [:button.button {:on-click show-description} "Show"]
-   [:button.button-primary {:on-click show-next} "Next"]])
+    [:button.button-primary {:on-click show-prev} "Prev"]
+    [:button.button {:on-click show-description} "Show"]
+    [:button.button-primary {:on-click show-next} "Next"]])
 
 (defn app []
   [:div
-   [top-bar]
-   [:div.container
-    [:div.row
-     [main]
-     [nav]]]])
+    [top-bar]
+    [:div.container
+      [:div.row
+        [main]
+        [nav]]]])
 
 ;; -------------------------
 ;; Initialize app
